@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Name Set</title>
+    </head>
+    <body>
+        <!-- condition for whether entry is training or test set -->
+        {% if set_type == "training" %}
+            <form>
+                Name Your Training Set:<br><br><br><br>
+                    <input type="text" name="name_training" id="name_training" onkeypress="return nameTraining(event)" autofocus = "autofocus"/>
+                    <script>
+                        // go to list page and pass the set name into url
+                        function nameTraining(e){
+                            if(e.keyCode === 13){
+                                document.location.href = '/myapp/list/{{set_type}}/' + document.getElementById('name_training').value;
+                                return false;
+                            }
+                        }
+                    </script>
+            </form>
+        {% elif set_type == "test" %}
+            <form>
+                Name Your Test Set:<br><br><br><br>
+                    <input type="text" name="name_test" id="name_test" onkeypress="return nameTest(event)" autofocus = "autofocus"/>
+                    <script>
+                        // go to list page and pass set name into url
+                        function nameTest(e){
+                            if(e.keyCode === 13){
+                                document.location.href = '/myapp/list/{{set_type}}/' + document.getElementById('name_test').value;
+                                return false;
+                            }
+                        }
+                    </script>
+            </form>
+        {% endif %}
+    </body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Welcome</title>
+    </head>
+    <body>
+        <p>Welcome to the Toxin Screening Labeling System! Please select from the following options:</p>
+        <br>
+        <!-- Training Set Button -->
+        <p><input type="submit" value="Make a Training Set" onclick="return makeTraining(event)"/></p>
+        <script>
+                // go to nameSet page and pass in training as parameter
+                function makeTraining(e){
+                    document.location.href = '/myapp/nameSet/training';
+                    return false;
+                }
+        </script>
+        <br>
+        <!-- Test Set Button -->
+        <p><input type="submit" value="Make a Test Set" onclick="return makeTest(event)"/></p>
+        <script>
+                // go to nameSet page and pass in test as parameter
+                function makeTest(e){
+                    document.location.href = '/myapp/nameSet/test';
+                    return false;
+                }
+        </script>
+    </body>
+</html>

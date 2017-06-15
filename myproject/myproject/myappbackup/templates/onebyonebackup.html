@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Minimal Django File Upload Example</title>
+    </head>
+
+    <body>
+        <!-- List of uploaded documents -->
+        {% if documents %}
+            <img src="{{ documents.docfile.url }}">
+        {% else %}
+            <p>No documents.</p>
+        {% endif %}
+        <br>
+        <!--a href={% url 'onebyone' next document.getElementById('neyes').value %}>Next</a-->
+        <br>
+        <!-- Upload form. Note enctype attribute! -->
+        <form action="{% url "onebyone" next document.getElementById('neyes').value %}" method="onebyone">
+            Number of Eyes:<br>
+                <input type="text" name="numeyes" id="neyes" onkeypress="return handle(event)" />
+                <script>
+                function handle(e){
+                    if(e.keyCode === 13){
+                        console.log("enter here");
+                        document.location.href = "{% url 'onebyone' next document.getElementById('neyes').value %}";
+                        return false;
+                    }
+                    console.log(document.getElementById("neyes").value);
+                }
+                </script>
+        </form>
+    </body>
+
+</html>

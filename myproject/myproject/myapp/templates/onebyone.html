@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Minimal Django File Upload Example</title>
+    </head>
+
+    <body>
+        <!-- display individual image -->
+        {% if documents %}
+            <img src="{{ documents.docfile.url }}" width="300" height="300">
+        {% else %}
+            <p>No documents.</p>
+        {% endif %}
+        <br>
+        <br>
+        <form>
+            <!-- entry field for num of eyes -->
+            Number of Eyes:<br>
+                <input type="text" name="numeyes" id="neyes" onkeypress="return handle(event)" autofocus = "autofocus"/>
+                <script>
+                // load onebyone page again. Pass in next image id and whatever the label for number of eyes was entered as.
+                function handle(e){
+                    if(e.keyCode === 13){
+                            document.location.href = '/myapp/onebyone/{{set_type}}/{{set_name}}/{{next}}/' + document.getElementById('neyes').value;
+                        return false;
+                    }
+                }
+                </script>
+        </form>
+    </body>
+
+</html>

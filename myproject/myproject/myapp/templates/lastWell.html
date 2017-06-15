@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Done Labeling</title>
+    </head>
+    <body>
+        <p>Labeling is Done! Good Job!</p>
+        <br> <br> <br>
+        <p><input type="submit" value="Home" onclick="return goHome(event)"/></p>
+        <script>
+                // if button is pressed, go to welcome page
+                function goHome(e){
+                    document.location.href = '/myapp/welcome';
+                    return false;
+                }
+        </script>
+    </body>
+</html>

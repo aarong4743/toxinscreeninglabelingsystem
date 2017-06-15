@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Minimal Django File Upload Example</title>
+    </head>
+
+    <body>
+        <!-- List of uploaded documents -->
+        {% if documents %}
+            <img src="{{ documents.docfile.url }}">
+        {% else %}
+            <p>No documents.</p>
+        {% endif %}
+        <br>
+        <br>
+        <!-- Upload form. Note enctype attribute! -->
+        <form>
+            Number of Eyes:<br>
+                <input type="text" name="numeyes" id="neyes" onkeypress="return handle(event)" autofocus = "autofocus"/>
+                <script>
+                function handle(e){
+                    if(e.keyCode === 13){
+                        console.log("enter here");
+                        //$.ajax({%
+                            //type: "POST",
+                            //url: 'testme'});
+                            //url: 'onebyone/' + next + '/' + document.getElementById('neyes').value %});
+                            document.location.href = '/myapp/onebyone/{{next}}/' + document.getElementById('neyes').value;
+                        return false;
+                    }
+                    console.log(document.getElementById("neyes").value);
+                }
+                </script>
+        </form>
+    </body>
+
+</html>

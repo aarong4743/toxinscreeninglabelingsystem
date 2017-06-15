@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Minimal Django File Upload Example</title>
+    </head>
+
+    <body>
+        <!-- List of uploaded documents -->
+        {% if documents %}
+            <img src="{{ documents.docfile.url }}">
+        {% else %}
+            <p>No documents.</p>
+        {% endif %}
+        <br>
+        <a href={% url 'onebyone' next %}>Next</a>
+        <br>
+        <form>
+            Number of Eyes:<br>
+            <form action="#">
+                <input type="text" name="numeyes" onkeypress="handle(event)" />
+                <script>
+                function handle(e){
+                    console.log("here");
+                    if(e.keyCode === 200){
+                        document.location.href = {% url 'onebyone' next %};
+                        console.log("here");
+                    }
+                }
+                </script>
+            </form>
+
+        </form>
+        <script>
+            console.log("here");
+        </script>
+    </body>
+
+</html>

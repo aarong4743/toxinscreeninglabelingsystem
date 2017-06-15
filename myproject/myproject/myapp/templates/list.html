@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Minimal Django File Upload Example</title>
+    </head>
+
+    <body>
+        <script>
+            // print whether this is a training or test set
+            var pathArray = window.location.pathname.split( '/' );
+            if (pathArray[3] == "training")
+            {
+                document.write("Select images to label for your training set:");
+            }
+            else if(pathArray[3] == "test")
+            {
+                document.write("Select images in the well to label the well:");
+            }
+        </script>
+        <br>
+        <!-- After uploading, display how many images were uploaded -->
+        {% if documents %}
+            <p>Num Images is: {{num_images}}</p>
+        {% endif %}
+        <br> <br> <br> <br>
+
+        <!-- Upload form. Note enctype attribute! -->
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p>{{ form.non_field_errors }}</p>
+
+            <p>{{ form.file_field.label_tag }} {{ form.file_field.help_text }}</p>
+
+            <p>
+                {{ form.file_field.errors }}
+                {{ form.file_field }}
+            </p>
+
+            <p><input type="submit" value="Upload"/></p>
+        </form>
+
+        <br>
+        <p>Are you ready to start labeling?</p>
+        <br>
+        <p><input type="submit" value="Start Labeling" onclick="return startLabeling(event)"/></p>
+        <script>
+            // if this is a training set, go to startlabeling page. If this is a test set and the first well, go to firstWell page. If this is a test set and and not the first well, go to doWell page.
+            function startLabeling(e){
+                var pathArray = window.location.pathname.split( '/' );
+                if (pathArray[3] == "training")
+                {
+                    document.location.href = '/myapp/startlabeling/' + pathArray[3] + '/' + pathArray[4];
+                }
+                else if ((pathArray[3] == "test") && (pathArray.length == 5))
+                {
+                    document.location.href = '/myapp/firstWell/' + pathArray[3] + '/' + pathArray[4];
+                }
+                else if ((pathArray[3] == "test") && (pathArray.length == 7))
+                {
+                    document.location.href = '/myapp/doWell/' + pathArray[3] + '/' + pathArray[4] + '/' + pathArray[5] + '/' + pathArray[6];
+                }
+                return false;
+            }
+        </script>
+
+        <!-- If this is a test set, add button for allowing users to say they are finished labeling all wells -->
+        {% if "/test/" in request.path %}
+            <br> <br>
+            <p>Are you finished?</p>
+            <br>
+            <p><input type="submit" value="I am finished" onclick="return finishedWell(event)"/></p>
+            <script>
+                // call doWell, but add last optional parameter of 1 to signal being finished
+                function finishedWell(e){
+                    var pathArray = window.location.pathname.split( '/' );
+                    document.location.href = '/myapp/doWell/' + pathArray[3] + '/' + pathArray[4] + '/' + pathArray[5] + '/' + pathArray[6] + '/1';
+                    return false;
+                }
+            </script>
+        {% endif %}
+
+    </body>
+
+</html>

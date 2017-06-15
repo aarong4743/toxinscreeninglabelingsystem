@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Temp Clear</title>
+    </head>
+    <body>
+        <script>
+            // automatically go back to list page with url parameters specified
+            var pathArray = window.location.pathname.split( '/' );
+            document.location.href = '/myapp/list/' + pathArray[3] + '/' + pathArray[4] + '/' + pathArray[5] + '/' + pathArray[6];
+        </script>
+    </body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Minimal Django File Upload Example</title>
+    </head>
+
+    <body>
+        <!-- List all images in well -->
+        {% if documents %}
+            <ul>
+                {% for document in documents %}
+                    <li><img src="{{ document.docfile.url }}" width="200" height="200"></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No documents.</p>
+        {% endif %}
+        <br>
+        <br>
+        <form>
+            <!-- Number of eyes entry form -->
+            Number of Eyes:<br>
+                <input type="text" name="numeyes" id="neyes" onkeypress="return handle(event)"/>
+                <script>
+                // if enter is pressed, change url and reflect num eyes value in text box
+                function handle(e){
+                    if(e.keyCode === 13){
+                            document.location.href = '/myapp/tempClear/{{set_type}}/{{set_name}}/{{next}}/' + document.getElementById('neyes').value;
+                        return false;
+                    }
+                }
+                </script>
+        </form>
+    </body>
+
+</html>
